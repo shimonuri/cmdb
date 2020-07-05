@@ -7,7 +7,9 @@ from error import EloggingError
 
 class InvalidRegexPattern(EloggingError):
     def __init__(self, function_pattern):
-        super().__init__(f"The pattern '{function_pattern}' is not a valid regex pattern.")
+        super().__init__(
+            f"The pattern '{function_pattern}' is not a valid regex pattern."
+        )
 
 
 class LoggingFilter:
@@ -27,7 +29,8 @@ class LoggingFilter:
 
         return True
 
-    def _is_valid_pattern(self, pattern):
+    @staticmethod
+    def _is_valid_pattern(pattern):
         try:
             re.compile(pattern)
             return True
