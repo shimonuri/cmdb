@@ -5,7 +5,7 @@ from logging_filter import LoggingFilter
 
 
 @click.command()
-@click.option("--script", default=None, help="Python script path")
+@click.argument("script", default=None)
 @click.option("--function", default=None, help="The function name to filter.")
 def main(script, function):
     if not script or not function:
