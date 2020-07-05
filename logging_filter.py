@@ -21,7 +21,7 @@ class LoggingFilter:
         self.function_pattern = function_patterns
 
     def should_filter(self, args, kwargs) -> bool:
-        stack = [s.name for s in traceback.extract_stack()]
+        stack = [item.name for item in traceback.extract_stack()]
         for function_pattern in self.function_pattern:
             for stack_item in stack:
                 if re.match(function_pattern, stack_item):
