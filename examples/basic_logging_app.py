@@ -1,14 +1,21 @@
 import logging
+import dependency
 
 
 def mother():
     logging.error("mother")
-    daughter()
+    daughter("cyber")
+    # raise ValueError
     son()
 
 
-def daughter():
-    logging.error("daughter")
+def daughter(a, b="he"):
+    a = 0
+    for i in range(10):
+        a += i
+        logging.error("daughter")
+
+    dependency.dependency()
 
 
 def son():

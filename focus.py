@@ -1,7 +1,8 @@
 import click
-
-import logging_wrapper
-from logging_filter import LoggingFilter
+import preload
+import sys
+import pathlib
+import re
 
 
 @click.command()
@@ -11,7 +12,8 @@ def main(script, function):
     if not script:
         return
 
-    logging_wrapper.wrap_logging((LoggingFilter(function_patterns=[function]),))
+    preload.implement(function)
+    sys.path.insert(0, str(pathlib.Path(script).parent))
     exec(open(script, "rt").read(), globals())
 
 

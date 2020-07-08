@@ -1,3 +1,5 @@
+import builtins
+
 import logging
 import functools
 from typing import Collection
@@ -12,9 +14,31 @@ def wrap_log(log_func, logging_filters: Collection[LoggingFilter]):
             if logging_filter.should_filter(args, kwargs):
                 return
 
-        log_func(*args, **kwargs)
+        return log_func(*args, **kwargs)
 
     return wrapper
+
+
+def wrap_next(next_function):
+    @functools.wraps(next_function)
+    def wrapper(*args, **kwargs):
+        return next_function(*args, **kwargs)
+
+    return wrapper
+
+
+def wrap_range(range_func):
+    @functools.wraps(range_func)
+    def wrapper(*args, **kwargs):
+        range_obj = range_func(*args, **kwargs)
+        return range_obj
+
+    return wrapper
+
+
+def wrap_iteration():
+    builtins.next = wrap_next(builtins.next)
+    builtins.range = wrap_range(builtins.range)
 
 
 def wrap_logging(logging_filters):
