@@ -21,7 +21,7 @@ def main(script, function):
 
     SCRIPT is the path to the python script to be executed.
     """
-    preload.implement(function)
+    preload.run(function)
     sys.path.insert(0, str(pathlib.Path(script).parent))
     exec(open(script, "rt").read(), globals())
 

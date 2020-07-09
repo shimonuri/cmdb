@@ -32,7 +32,7 @@ def should_filter_trace(frame):
     return False
 
 
-def implement(function_pattern):
+def run(function_pattern):
     def trace(frame, event, arg):
         if event == "call":
             if should_filter_trace(frame):
