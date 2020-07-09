@@ -2,7 +2,7 @@ from typing import List
 import traceback
 import re
 
-from error import EloggingError
+from cmdb.error import EloggingError
 
 
 class InvalidRegexPattern(EloggingError):

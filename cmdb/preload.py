@@ -3,8 +3,8 @@ import re
 import pathlib
 import logging
 
-import logging_wrapper
-from logging_filter import LoggingFilter
+from cmdb import logging_wrapper
+from cmdb.logging_filter import LoggingFilter
 
 FOCUS_LOGGER_NAME = "__Focus_Logger__"
 logging.getLogger(FOCUS_LOGGER_NAME).setLevel(logging.DEBUG)

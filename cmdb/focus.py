@@ -1,8 +1,7 @@
 import click
-import preload
+from cmdb import preload
 import sys
 import pathlib
-import re
 
 
 @click.command()
