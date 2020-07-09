@@ -9,7 +9,7 @@ setup(
     author="Uri Shimon",
     author_email="uri.shimon5@gmail.com",
     url="https://github.com/shimonuri/cmdb",
-    download_url="https://github.com/shimonuri/cmdb/archive/v_01.tar.gz",
+    download_url="https://github.com/shimonuri/cmdb/archive/v0.1.zip",
     keywords=["DEBUGGER", "CMD", "LOGGING"],
     install_requires=["click",],
     classifiers=[
