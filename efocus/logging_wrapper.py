@@ -4,7 +4,7 @@ import logging
 import functools
 from typing import Collection
 
-from cmdb.logging_filter import LoggingFilter
+from efocus.logging_filter import LoggingFilter
 
 
 def wrap_log(log_func, logging_filters: Collection[LoggingFilter]):

@@ -1,8 +1,8 @@
 from distutils.core import setup
 
 setup(
-    name="cmdb",
-    packages=["cmdb"],
+    name="efocus",
+    packages=["efocus"],
     version="0.1.1",
     license="MIT",
     description="Simple command-line based debugger",

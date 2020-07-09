@@ -1,2 +1,2 @@
-# Cmdb
-Cmdb is a simple command-line based debugger.
+# efocus
+efocus is a simple command-line based debugger.

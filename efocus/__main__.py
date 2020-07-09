@@ -1,5 +1,5 @@
 import click
-from cmdb import preload
+from efocus import preload
 import sys
 import pathlib
 
