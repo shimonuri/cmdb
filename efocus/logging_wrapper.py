@@ -42,4 +42,5 @@ def wrap_iteration():
 
 
 def wrap_logging(logging_filters):
+    builtins.print = wrap_log(builtins.print, logging_filters=logging_filters)
     logging.Logger._log = wrap_log(logging.Logger._log, logging_filters=logging_filters)
