@@ -3,14 +3,14 @@ from distutils.core import setup
 setup(
     name="efocus",
     packages=["efocus"],
-    version="0.1.1",
+    version="0.1.2",
     license="MIT",
     description="Simple command-line based debugger",
     author="Uri Shimon",
     author_email="uri.shimon5@gmail.com",
     url="https://github.com/shimonuri/cmdb",
     download_url="https://github.com/shimonuri/cmdb/archive/v0.1.1.zip",
-    keywords=["DEBUGGER", "CMD", "LOGGING"],
+    keywords=["DEBUGGER", "CMD", "LOGGING", "FOCUS"],
     install_requires=["click",],
     classifiers=[
         "Development Status :: 3 - Alpha",
