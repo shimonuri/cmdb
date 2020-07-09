@@ -9,7 +9,7 @@ setup(
     author="Uri Shimon",
     author_email="uri.shimon5@gmail.com",
     url="https://github.com/shimonuri/cmdb",
-    download_url="https://github.com/shimonuri/cmdb/archive/v0.1.1.zip",
+    download_url="https://github.com/shimonuri/cmdb/archive/v0.1.2.zip",
     keywords=["DEBUGGER", "CMD", "LOGGING", "FOCUS"],
     install_requires=["click",],
     classifiers=[
