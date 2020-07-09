@@ -1,20 +1,32 @@
 import sys
 import re
+import pathlib
 import logging
 
 import logging_wrapper
 from logging_filter import LoggingFilter
 
+FOCUS_LOGGER_NAME = "__Focus_Logger__"
+logging.getLogger(FOCUS_LOGGER_NAME).setLevel(logging.DEBUG)
 
-def should_filter_trace(co_filename):
+
+def should_filter_trace(frame):
+    if frame.f_code.co_name.startswith("<"):
+        return True
+
+    try:
+        trace_file_path = pathlib.Path(frame.f_code.co_filename)
+    except TypeError:
+        return True
+
+    if pathlib.Path(".").absolute() not in trace_file_path.absolute().parents:
+        return True
+
     for pattern in [
-        "<frozen importlib._bootstrap",
-        "Program Files",
-        "PythonSoftwareFoundation",
-        "logging_filter",
-        "logging_wrapper",
+        "<frozen importlib._bootstrap_external>",
+        "<frozen importlib._bootstrap>",
     ]:
-        if pattern in co_filename:
+        if pattern in frame.f_code.co_filename:
             return True
 
     return False
@@ -23,23 +35,19 @@ def should_filter_trace(co_filename):
 def implement(function_pattern):
     def trace(frame, event, arg):
         if event == "call":
-            if should_filter_trace(frame.f_code.co_filename):
+            if should_filter_trace(frame):
                 return
 
             function_name = frame.f_code.co_name
-            if not function_name or function_name == "<module>":
-                return
 
             if re.match(function_pattern, function_name):
-                try:
-                    parameter_message = (
-                        f"with parameters {frame.f_locals}" if frame.f_locals else ""
-                    )
-                except AttributeError as e:
-                    print(function_name)
-                    exit()
+                parameter_message = (
+                    f"with parameters {frame.f_locals}" if frame.f_locals else ""
+                )
 
-                print(f"{function_name} was called {parameter_message}")
+                logging.getLogger(FOCUS_LOGGER_NAME).info(
+                    f"{function_name} was called {parameter_message}"
+                )
 
     sys.settrace(trace)
     logging_wrapper.wrap_logging((LoggingFilter(function_patterns=[function_pattern]),))
