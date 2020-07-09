@@ -32,7 +32,14 @@ def should_filter_trace(frame):
     return False
 
 
-def run(function_pattern):
+def run(function_pattern, log_enter):
+    if log_enter:
+        _trace_invocation(function_pattern)
+
+    logging_wrapper.wrap_logging((LoggingFilter(function_patterns=[function_pattern]),))
+
+
+def _trace_invocation(function_pattern):
     def trace(frame, event, arg):
         if event == "call":
             if should_filter_trace(frame):
@@ -50,4 +57,3 @@ def run(function_pattern):
                 )
 
     sys.settrace(trace)
-    logging_wrapper.wrap_logging((LoggingFilter(function_patterns=[function_pattern]),))
