@@ -5,7 +5,7 @@ setup(
     packages=["efocus"],
     version="0.1.3",
     license="MIT",
-    description="Simple command-line based debugger",
+    description="Simple command-line debugging/filtering util for python.",
     author="Uri Shimon",
     author_email="uri.shimon5@gmail.com",
     url="https://github.com/shimonuri/cmdb",
