@@ -2,6 +2,7 @@ import sys
 import re
 import pathlib
 import threading
+import pprint
 
 from efocus import wrapper
 from efocus.logging_filter import LoggingFilter
@@ -37,22 +38,25 @@ def run(function_pattern, log_enter):
     wrapper.wrap_logging((LoggingFilter(function_patterns=[function_pattern]),))
 
 
+def _create_invocation_message(frame):
+    message = "\n" + "." * 100 + "\n"
+    message += f"'{frame.f_code.co_name}' was invoked by '{frame.f_back.f_code.co_name}':\n"
+    if frame.f_locals:
+        message += pprint.pformat(frame.f_locals, indent=4) + "\n"
+
+    message += "." * 100
+    return message
+
+
 def _trace_invocation(function_pattern):
     def trace(frame, event, arg):
         if event == "call":
             if should_filter_trace(frame):
                 return
 
-            function_name = frame.f_code.co_name
-
-            if re.match(function_pattern, function_name):
-                parameter_message = (
-                    f"with arguments {frame.f_locals}"
-                    if frame.f_locals
-                    else "with no arguments"
-                )
-
-                LOGGER.info(f"{function_name} was called {parameter_message}")
+            if re.match(function_pattern, frame.f_code.co_name):
+                message = _create_invocation_message(frame)
+                LOGGER.info(message)
 
     sys.settrace(trace)
     threading.settrace(trace)
