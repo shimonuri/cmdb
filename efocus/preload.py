@@ -47,7 +47,9 @@ def _trace_invocation(function_pattern):
 
             if re.match(function_pattern, function_name):
                 parameter_message = (
-                    f"with parameters {frame.f_locals}" if frame.f_locals else ""
+                    f"with arguments {frame.f_locals}"
+                    if frame.f_locals
+                    else "with no arguments"
                 )
 
                 LOGGER.info(f"{function_name} was called {parameter_message}")
