@@ -1,4 +1,12 @@
+import sys
 from distutils.core import setup
+
+try:
+    from semantic_release import setup_hook
+
+    setup_hook(sys.argv)
+except ImportError:
+    pass
 
 setup(
     name="efocus",
