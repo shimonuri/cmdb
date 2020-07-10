@@ -1,13 +1,11 @@
 import sys
 import re
 import pathlib
-import logging
+import threading
 
-from efocus import logging_wrapper
+from efocus import wrapper
 from efocus.logging_filter import LoggingFilter
-
-FOCUS_LOGGER_NAME = "__Focus_Logger__"
-logging.getLogger(FOCUS_LOGGER_NAME).setLevel(logging.DEBUG)
+from efocus.logger import LOGGER
 
 
 def should_filter_trace(frame):
@@ -36,7 +34,7 @@ def run(function_pattern, log_enter):
     if log_enter:
         _trace_invocation(function_pattern)
 
-    logging_wrapper.wrap_logging((LoggingFilter(function_patterns=[function_pattern]),))
+    wrapper.wrap_logging((LoggingFilter(function_patterns=[function_pattern]),))
 
 
 def _trace_invocation(function_pattern):
@@ -52,8 +50,7 @@ def _trace_invocation(function_pattern):
                     f"with parameters {frame.f_locals}" if frame.f_locals else ""
                 )
 
-                logging.getLogger(FOCUS_LOGGER_NAME).info(
-                    f"{function_name} was called {parameter_message}"
-                )
+                LOGGER.info(f"{function_name} was called {parameter_message}")
 
     sys.settrace(trace)
+    threading.settrace(trace)
