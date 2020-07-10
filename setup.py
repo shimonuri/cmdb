@@ -11,13 +11,13 @@ except ImportError:
 setup(
     name="efocus",
     packages=["efocus"],
-    version="0.1.3",
+    version="0.1.4",
     license="MIT",
     description="Simple command-line debugging/filtering util for python.",
     author="Uri Shimon",
     author_email="uri.shimon5@gmail.com",
     url="https://github.com/shimonuri/cmdb",
-    download_url="https://github.com/shimonuri/cmdb/archive/v0.1.3.zip",
+    download_url="https://github.com/shimonuri/cmdb/archive/v0.1.4.zip",
     keywords=["DEBUGGER", "CMD", "LOGGING", "FOCUS"],
     install_requires=["click",],
     classifiers=[
